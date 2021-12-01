@@ -1,3 +1,5 @@
 # virtualenv
 .python-version
 
+# logs
+*.log

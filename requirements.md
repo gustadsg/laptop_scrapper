@@ -7,7 +7,7 @@
 - rating
 - num\_reviews
 
-# Requisitos Fucnionais
+# Requisitos Funcionais
 - buscar por um notebook (da marca Lenovo) em uma página web por meio de raspagem de dados usando python
 - como padrão, ordenar preços do menor para o maior
 

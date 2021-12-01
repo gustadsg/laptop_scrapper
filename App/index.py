@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def scrap():
   scrapper_instance = Scrapper()
-  result = scrapper_instance.scrap("lenovo")
+  result = scrapper_instance.scrap()
   return jsonify(result)
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ class Scrapper:
     self.driver = webdriver.Firefox(options=options)
     self.driver.get(WEBSITE_URL)
   
-  def scrap(self, q, minPrice=False, maxPrice=False, reverse=False):
+  def scrap(self, q=False, minPrice=False, maxPrice=False, reverse=False):
     self.products = self.get_all_products()
     self.apply_filters( q, minPrice, maxPrice)
 

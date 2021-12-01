@@ -4,7 +4,7 @@
 - description
 - price
 - url
-- img
+- img_url
 - rating
 - num_reviews
 

@@ -86,7 +86,7 @@
         const loading = document.getElementById("loading");
         loading.classList.remove("hidden");
 
-        fetch("/api/?" + params, {
+        fetch("/api?" + params, {
           method: "GET",
         }).then((response) => {
           response

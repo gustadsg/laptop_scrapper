@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laptop scrapping</title>
+  </head>
+  <body>
+    <form>
+      <label for="q">
+        Pesquisa
+        <input type="text" name="q" placeholder="Pesquisa" id="q" />
+      </label>
+      <label
+        >Preço mínimo
+        <input
+          type="number"
+          min="0"
+          max="99999"
+          name="min_price"
+          placeholder="Preço mínimo"
+          id="min_price"
+        />
+      </label>
+      <label
+        >Preço máximo
+        <input
+          type="number"
+          min="0"
+          max="99999"
+          name="max_price"
+          placeholder="Preço máximo"
+          id="max_price"
+        />
+      </label>
+      <label
+        >Ordem do maior para o menor preço:
+        <input type="checkbox" name="reverse" id="reverse" />
+      </label>
+      <input type="submit" value="Pesquisar" id="fetch" />
+    </form>
+
+    <textarea id="result" rows="10" cols="50" readonly> </textarea>
+
+    <script>
+      submit = document.getElementById("fetch");
+      submit.addEventListener("click", fetchData);
+
+      function fetchData(e) {
+        e.preventDefault();
+        fetch("/", {
+          method: "GET",
+        }).then((response) => {
+          response.json().then((data) => {
+            const resultTxt = JSON.stringify(data, null, "\t");
+
+            const resultTextArea = document.getElementById("result");
+            resultTextArea.value = resultTxt;
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

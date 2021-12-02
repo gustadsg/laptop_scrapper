@@ -1,10 +1,9 @@
 from operator import or_
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from app import app, scrapper
 from app.models.Product import Product
 from app.helpers.database_helper import add_or_update_product
 from datetime import datetime
-import math
 
 @app.route('/')
 def scrap():
@@ -37,5 +36,10 @@ def scrap():
   scrapper.clear()
   return jsonify(result)
 
+@app.route("/home")
+def home():
+  return render_template("index.html")
+
+  
 if __name__ == '__main__':
   app.run()

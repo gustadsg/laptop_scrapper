@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laptop scrapping</title>
+  </head>
+  <link rel="stylesheet" href="../static/home.css" />
+  <body>
+    <div class="loading hidden" id="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <h1>Laptop Scrap</h1>
+    <form class="form">
+      <label for="q">
+        Pesquisa
+        <input type="text" name="q" placeholder="Pesquisa" id="q" />
+      </label>
+      <label
+        >Preço mínimo
+        <input
+          type="number"
+          min="0"
+          max="99999"
+          name="min_price"
+          placeholder="Preço mínimo"
+          id="min_price"
+        />
+      </label>
+      <label
+        >Preço máximo
+        <input
+          type="number"
+          min="0"
+          max="99999"
+          name="max_price"
+          placeholder="Preço máximo"
+          id="max_price"
+        />
+      </label>
+      <label>
+        Ordem do maior para o menor preço:
+        <input type="checkbox" name="reverse" id="reverse" />
+        <span></span>
+      </label>
+      <label
+        >Tolerância para ultima atualização dos dados em segundos:
+        <input
+          type="number"
+          name="update_tolerance"
+          id="update_tolerance"
+          placeholder="Tolerância"
+        />
+      </label>
+      <input type="submit" value="Pesquisar" id="fetch" />
+    </form>
+
+    <h2>Resultado</h2>
+    <textarea id="result" class="result" rows="10" cols="50" readonly>
+    </textarea>
+
+    <script>
+      submit = document.getElementById("fetch");
+      submit.addEventListener("click", fetchData);
+
+      function fetchData(e) {
+        e.preventDefault();
+
+        const q = document.getElementById("q").value;
+        const min_price = document.getElementById("min_price").value;
+        const max_price = document.getElementById("max_price").value;
+        const update_tolerance =
+          document.getElementById("update_tolerance").value;
+        const reverse = document.getElementById("reverse").checked;
+
+        const params = new URLSearchParams({
+          q,
+          min_price,
+          max_price,
+          update_tolerance,
+          reverse: reverse ? "true" : "false",
+        });
+
+        const loading = document.getElementById("loading");
+        loading.classList.remove("hidden");
+
+        fetch("/?" + params, {
+          method: "GET",
+        }).then((response) => {
+          response
+            .json()
+            .then((data) => {
+              const resultTxt = JSON.stringify(data, null, "\t");
+
+              const resultTextArea = document.getElementById("result");
+              resultTextArea.value = resultTxt;
+
+              loading.classList.add("hidden");
+            })
+            .catch((err) => {
+              alert("Erro ao processar resposta");
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

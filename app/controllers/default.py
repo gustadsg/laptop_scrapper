@@ -1,23 +1,25 @@
 from operator import or_
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 from app import app, scrapper
 from app.models.Product import Product
 from app.helpers.database_helper import add_or_update_product
+from app.controllers.helpers.validators import scrap_validator 
 from datetime import datetime
-import math
 
 @app.route('/')
 def scrap():
-  q = request.args.get('q') if request.args.get('q') != None else ''
-  min_price = request.args.get('min_price') if request.args.get('min_price') != None else 0
-  max_price = request.args.get('max_price') if request.args.get('min_price') != None else 9999999
-  reverse = request.args.get('reverse') if request.args.get('reverse') != None else False
-  update_tolerance = request.args.get('update_tolerance') if request.args.get('update_tolerance') != None else False
+  q = request.args.get('q')
+  min_price = request.args.get('min_price') 
+  max_price = request.args.get('max_price') 
+  reverse = request.args.get('reverse') 
+  update_tolerance = request.args.get('update_tolerance')
 
+  q, min_price, max_price, reverse, update_tolerance = scrap_validator(q, min_price, max_price, reverse, update_tolerance)
+  
   # apply all filters in database
-  result = Product.query.filter(Product.price >= min_price).filter(Product.price <= min_price).filter(or_(Product.title.ilike(f"%{q}%"), Product.description.ilike(f"%{q}%"))).all()
+  result = Product.query.filter(Product.price >= min_price).filter(Product.price <= max_price).filter(or_(Product.title.ilike(f"%{q}%"), Product.description.ilike(f"%{q}%"))).all()
 
-  if result and update_tolerance != None:
+  if result and update_tolerance:
     last_updated = result[0].updated_at
     difference = datetime.utcnow() - last_updated
 
@@ -36,6 +38,11 @@ def scrap():
 
   scrapper.clear()
   return jsonify(result)
+
+@app.route("/home")
+def home():
+  return render_template("index.html")
+
 
 if __name__ == '__main__':
   app.run()

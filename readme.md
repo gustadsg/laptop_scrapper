@@ -77,8 +77,8 @@ flask run # inicia o servidor em http://localhost:5000
         <h3>/</h3>
         <h4>Funcionamento</h4>
         <p>Essa é uma rota com interface visual simples que permite o teste da aplicação. Acesse-a e altere os valores dos inputs para receber os dados correspondentes obtidos da rota /api</p>
+        <img src="./images/playground.png" alt="Imagem ilustrativa da interface visual da rota de playground" />
       </div>
     </details>
   </li>
-
-  </ol>
+</ol>

@@ -6,7 +6,7 @@ from app.helpers.database_helper import add_or_update_product
 from app.controllers.helpers.validators import scrap_validator 
 from datetime import datetime
 
-@app.route('/')
+@app.route('/api')
 def scrap():
   q = request.args.get('q')
   min_price = request.args.get('min_price') 
@@ -39,7 +39,7 @@ def scrap():
   scrapper.clear()
   return jsonify(result)
 
-@app.route("/home")
+@app.route("/")
 def home():
   return render_template("index.html")
 

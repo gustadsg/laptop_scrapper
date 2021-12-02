@@ -24,12 +24,12 @@ class Scrapper:
     return self.products
 
   def apply_filters(self, q, min_price, max_price):
-    if q != None:
+    if q:
       self.products = self.filter_by_text(q)
     
-    if min_price!= None:
+    if min_price:
       self.products = self.filter_by_min_price(float(min_price))
-    if max_price!= None:
+    if max_price:
       self.products = self.filter_by_max_price(float(max_price))
 
   def filter_by_text(self, q):

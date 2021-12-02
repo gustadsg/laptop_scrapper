@@ -15,11 +15,11 @@ def scrap():
   update_tolerance = request.args.get('update_tolerance')
 
   q, min_price, max_price, reverse, update_tolerance = scrap_validator(q, min_price, max_price, reverse, update_tolerance)
-
+  
   # apply all filters in database
-  result = Product.query.filter(Product.price >= min_price).filter(Product.price <= min_price).filter(or_(Product.title.ilike(f"%{q}%"), Product.description.ilike(f"%{q}%"))).all()
+  result = Product.query.filter(Product.price >= min_price).filter(Product.price <= max_price).filter(or_(Product.title.ilike(f"%{q}%"), Product.description.ilike(f"%{q}%"))).all()
 
-  if result and update_tolerance != None:
+  if result and update_tolerance:
     last_updated = result[0].updated_at
     difference = datetime.utcnow() - last_updated
 

@@ -35,9 +35,13 @@
           id="max_price"
         />
       </label>
-      <label
-        >Ordem do maior para o menor preço:
+      <label>
+        Ordem do maior para o menor preço:
         <input type="checkbox" name="reverse" id="reverse" />
+      </label>
+      <label
+        >Tolerância para ultima atualização dos dados em segundos:
+        <input type="number" name="update_tolerance" id="update_tolerance" />
       </label>
       <input type="submit" value="Pesquisar" id="fetch" />
     </form>
@@ -54,12 +58,15 @@
         const q = document.getElementById("q").value;
         const min_price = document.getElementById("min_price").value;
         const max_price = document.getElementById("max_price").value;
+        const update_tolerance =
+          document.getElementById("update_tolerance").value;
         const reverse = document.getElementById("reverse").checked;
 
         const params = new URLSearchParams({
           q,
           min_price,
           max_price,
+          update_tolerance,
           reverse: reverse ? "true" : "false",
         });
 

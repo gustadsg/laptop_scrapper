@@ -9,8 +9,8 @@ def scrap_validator(q, min_price, max_price, reverse, update_tolerance):
   return q, min_price, max_price, reverse, update_tolerance
 
 def __validate_q(q):
-  if q == '' or q == None or q == False:
-    return False
+  if q == None or q == False:
+    return ""
   return q
 
 def __validate_min_price(min_price):
@@ -23,11 +23,11 @@ def __validate_min_price(min_price):
 
 def __validate_max_price(max_price):
   if max_price == '' or max_price == None or max_price == False:
-    return math.inf
+    return math.inf - 1
   try:
     return float(max_price)
   except:
-    return math.inf
+    return math.inf - 1
 
 def __validate_reverse(reverse):
   if reverse == '' or reverse == None or reverse == False:

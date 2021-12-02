@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Laptop scrapping</title>
   </head>
+  <link rel="stylesheet" href="../static/home.css" />
   <body>
     <form>
       <label for="q">
@@ -49,7 +50,20 @@
 
       function fetchData(e) {
         e.preventDefault();
-        fetch("/", {
+
+        const q = document.getElementById("q").value;
+        const min_price = document.getElementById("min_price").value;
+        const max_price = document.getElementById("max_price").value;
+        const reverse = document.getElementById("reverse").checked;
+
+        const params = new URLSearchParams({
+          q,
+          min_price,
+          max_price,
+          reverse: reverse ? "true" : "false",
+        });
+
+        fetch("/?" + params, {
           method: "GET",
         }).then((response) => {
           response.json().then((data) => {

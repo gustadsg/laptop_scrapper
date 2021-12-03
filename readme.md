@@ -34,6 +34,7 @@ Este é um projeto de uma API com web scrapping usando Selenium para automatizar
 Para instalar, siga o passo a passo:
 
 ```bash
+sudo apt install firefox-geckodriver # instalar dependência para usar o WebDriver do Firefox
 git clone git@github.com:gustadsg/laptop_scrapper.git # fazer o download do projeto
 cd laptop_scrapper # entrar no diretório do projeto
 pip install -r requirements.txt # instalar dependências
